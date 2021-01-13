@@ -4,7 +4,7 @@ public class Item {
 
 	private Long id;
 	private String itemName;
-	private double price;
+	private Double price;
 
 	public Item(Long id, String itemName, Double price) {
 		this.id = id;
@@ -55,31 +55,31 @@ public class Item {
 //		return result;
 //	}
 //
-//	@Override
-//	public boolean equals(Object obj) {
-//		if (this == obj)
-//			return true;
-//		if (obj == null)
-//			return false;
-//		if (getClass() != obj.getClass())
-//			return false;
-//		Item other = (Item) obj;
-//		if (itemName == null) {
-//			if (other.itemName != null)
-//				return false;
-//		} else if (!itemName.equals(other.itemName))
-//			return false;
-//		if (id == null) {
-//			if (other.id != null)
-//				return false;
-//		} else if (!id.equals(other.id))
-//			return false;
-//		if (price == null) {
-//			if (other.price != null)
-//				return false;
-//		} else if (!price.equals(other.price))
-//			return false;
-//		return true;
-//	}
-//
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Item other = (Item) obj;
+		if (itemName == null) {
+			if (other.itemName != null)
+				return false;
+		} else if (!itemName.equals(other.itemName))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (price == null) {
+			if (other.price != null)
+				return false;
+		} else if (!price.equals(other.price))
+			return false;
+		return true;
+	}
+
 }
