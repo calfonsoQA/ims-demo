@@ -8,15 +8,21 @@ public class Order {
 	private Long ordItem_id;
 	private Long customer_id;
 	private Long item_id;
-	private Date order_date;
+	private String order_date;
 	
-	public Order(Long ordItem_id, Long customer_id, Long item_id, Date order_date) {
+	
+	public Order(Long customer_id, Long item_id, String order_date) {
+		this.customer_id = customer_id;
+		this.item_id = item_id;
+		this.order_date = order_date;
+	}
+	public Order(Long ordItem_id, Long customer_id, Long item_id, String order_date) {
 		this.ordItem_id = ordItem_id;
 		this.customer_id = customer_id;
 		this.item_id = item_id;
 		this.order_date = order_date;
 	}
-	public Order(Long id, Long ordItem_id, Long customer_id, Long item_id, Date order_date) {
+	public Order(Long id, Long ordItem_id, Long customer_id, Long item_id, String order_date) {
 		this.id = id;
 		this.ordItem_id = ordItem_id;
 		this.customer_id = customer_id;
@@ -52,10 +58,10 @@ public class Order {
 	public void setItem_id(Long item_id) {
 		this.item_id = item_id;
 	}
-	public Date getOrder_date() {
+	public String getOrder_date() {
 		return order_date;
 	}
-	public void setOrder_date(Date order_date) {
+	public void setOrder_date(String order_date) {
 		this.order_date = order_date;
 	}
 
