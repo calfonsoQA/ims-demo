@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Order {
 	
-	private Long order_id;
+	private Long id;
 	private Long ordItem_id;
 	private Long customer_id;
 	private Long item_id;
@@ -16,8 +16,8 @@ public class Order {
 		this.item_id = item_id;
 		this.order_date = order_date;
 	}
-	public Order(Long order_id, Long ordItem_id, Long customer_id, Long item_id, Date order_date) {
-		this.order_id = order_id;
+	public Order(Long id, Long ordItem_id, Long customer_id, Long item_id, Date order_date) {
+		this.id = id;
 		this.ordItem_id = ordItem_id;
 		this.customer_id = customer_id;
 		this.item_id = item_id;
@@ -25,14 +25,14 @@ public class Order {
 	}
 	@Override
 	public String toString() {
-		return "Order [order_id= " + order_id + ", customer_id= " + customer_id + ", item_id= " + item_id + ", order_date= "
+		return "Order [order_id= " + id + ", customer_id= " + customer_id + ", item_id= " + item_id + ", order_date= "
 				+ order_date + "]";
 	}
-	public Long getOrder_id() {
-		return order_id;
+	public Long getId() {
+		return id;
 	}
-	public void setOrder_id(Long order_id) {
-		this.order_id = order_id;
+	public void setOrder_id(Long id) {
+		this.id = id;
 	}
 	public Long getOrdItem_id() {
 		return ordItem_id;
