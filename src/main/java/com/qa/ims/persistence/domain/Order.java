@@ -1,5 +1,57 @@
 package com.qa.ims.persistence.domain;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Order {
+	
+	private Long order_id;
+	private Long ordItem_id;
+	private Long customer_id;
+	private Long item_id;
+	private Date order_date;
+	
+	public Order(Long ordItem_id, Long customer_id, Long item_id, Date order_date) {
+		this.ordItem_id = ordItem_id;
+		this.customer_id = customer_id;
+		this.item_id = item_id;
+		this.order_date = order_date;
+	}
+	public Order(Long order_id, Long ordItem_id, Long customer_id, Long item_id, Date order_date) {
+		this.order_id = order_id;
+		this.ordItem_id = ordItem_id;
+		this.customer_id = customer_id;
+		this.item_id = item_id;
+		this.order_date = order_date;
+	}
+	public Long getOrder_id() {
+		return order_id;
+	}
+	public void setOrder_id(Long order_id) {
+		this.order_id = order_id;
+	}
+	public Long getOrdItem_id() {
+		return ordItem_id;
+	}
+	public void setOrdItem_id(Long ordItem_id) {
+		this.ordItem_id = ordItem_id;
+	}
+	public Long getCustomer_id() {
+		return customer_id;
+	}
+	public void setCustomer_id(Long customer_id) {
+		this.customer_id = customer_id;
+	}
+	public Long getItem_id() {
+		return item_id;
+	}
+	public void setItem_id(Long item_id) {
+		this.item_id = item_id;
+	}
+	public Date getOrder_date() {
+		return order_date;
+	}
+	public void setOrder_date(Date order_date) {
+		this.order_date = order_date;
+	}
 
 }
