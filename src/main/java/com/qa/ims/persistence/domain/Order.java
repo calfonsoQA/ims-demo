@@ -23,6 +23,11 @@ public class Order {
 		this.item_id = item_id;
 		this.order_date = order_date;
 	}
+	@Override
+	public String toString() {
+		return "Order [order_id= " + order_id + ", customer_id= " + customer_id + ", item_id= " + item_id + ", order_date= "
+				+ order_date + "]";
+	}
 	public Long getOrder_id() {
 		return order_id;
 	}
