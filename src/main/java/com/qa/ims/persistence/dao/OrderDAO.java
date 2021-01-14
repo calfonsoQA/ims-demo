@@ -16,6 +16,7 @@ import com.qa.ims.utils.DBUtils;
 public class OrderDAO implements Dao<Order> {
 
 	public static final Logger LOGGER = LogManager.getLogger();
+	private OrderDAO orderDao;
 
 	
 	public Order modelOrderItemFromResultSet(ResultSet resultSet) throws SQLException {
@@ -33,6 +34,7 @@ public class OrderDAO implements Dao<Order> {
 		Long item_id = resultSet.getLong("item_id");
 		String date = resultSet.getString("order_date");
 		return new Order(id, orditem_id, customer_id, item_id, date);
+		
 	}
 
 	@Override
@@ -83,7 +85,7 @@ public class OrderDAO implements Dao<Order> {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();) {
 			statement.executeUpdate("INSERT INTO orders(customer_id, order_date) values('" + order.getCustomer_id()+ "','" + order.getOrder_date() + "')");
-			readLatestOrder();
+			//readLatestOrder();
 			statement.executeUpdate("INSERT INTO ordersItems(order_id, item_id) values('" + order.getId() + "','" + order.getItem_id() + "')");
 			return readLatest();
 		} catch (Exception e) {
