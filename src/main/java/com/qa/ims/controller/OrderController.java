@@ -11,7 +11,7 @@ import com.qa.ims.services.CrudServices;
 import com.qa.ims.utils.Utils;
 
 /**
- * Takes in customer details for CRUD functionality
+ * Takes in order details for CRUD functionality
  *
  */
 public class OrderController implements CrudController<Order> {
@@ -56,6 +56,7 @@ public class OrderController implements CrudController<Order> {
 		Long order_id = 1L;
 		//Order order = orderService.create(new Order(customer_id, date));
 		Order order = orderService.create(new Order(order_id, customer_id, item_id, date));
+//							Order(Long id, Long customer_id, Long item_id, String order_date)
 		LOGGER.info("Order created");
 		return order;
 	}
@@ -80,7 +81,7 @@ public class OrderController implements CrudController<Order> {
 	}
 
 	/**
-	 * Deletes an existing customer by the id of the customer
+	 * Deletes an existing order by the id of the order
 	 */
 	@Override
 	public void delete() {

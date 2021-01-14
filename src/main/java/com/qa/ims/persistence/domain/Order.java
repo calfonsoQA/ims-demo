@@ -15,6 +15,11 @@ public class Order {
 
 	}
 
+	public Order(Long id) {
+		super();
+		this.id = id;
+	}
+
 	public Order(Long customer_id, String order_date) {
 
 		this.customer_id = customer_id;

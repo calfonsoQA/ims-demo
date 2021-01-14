@@ -18,6 +18,10 @@ public class OrderDAO implements Dao<Order> {
 	public static final Logger LOGGER = LogManager.getLogger();
 
 	
+	public Order modelOrderIDFromResultSet(ResultSet resultSet) throws SQLException {
+		Long id = resultSet.getLong("order_id");
+		return new Order(id);
+	}
 	public Order modelOrderFromResultSet(ResultSet resultSet) throws SQLException {
 		Long id = resultSet.getLong("order_id");
 		Long customer_id = resultSet.getLong("customer_id");
@@ -78,14 +82,28 @@ public class OrderDAO implements Dao<Order> {
 		}
 		return null;
 	}
+	public Long readLatestOrderID() {
+		try (Connection connection = DBUtils.getInstance().getConnection();
+				Statement statement = connection.createStatement();
+				ResultSet resultSet = statement.executeQuery("SELECT order_id FROM orders ORDER BY order_id DESC LIMIT 1");) {
+			resultSet.next();
+			return  resultSet.getLong("order_id");
+		} catch (Exception e) {
+			LOGGER.debug(e);
+			LOGGER.error(e.getMessage());
+		}
+		return null;
+	}
 
 	@Override
 	public Order create(Order order) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();) {
 			statement.executeUpdate("INSERT INTO orders(customer_id, order_date) values('" + order.getCustomer_id()+ "','" + order.getOrder_date() + "')");
-			//readLatestOrder();
-			statement.executeUpdate("INSERT INTO ordersItems(order_id, item_id) values('" + order.getId() + "','" + order.getItem_id() + "')");
+			//readLatestOrder(); 
+			//statement.executeUpdate("INSERT INTO ordersItems(order_id, item_id) values('" + order.getId() + "','" + order.getItem_id() + "')");
+			//statement.executeUpdate("INSERT INTO ordersItems(order_id, item_id) values('" + resultSet.getLong("order_id") + "','" + order.getItem_id() + "')");
+			statement.executeUpdate("INSERT INTO ordersItems(order_id, item_id) values('" + readLatestOrderID() + "','" + order.getItem_id() + "')");
 			return readLatest();
 		} catch (Exception e) {
 			LOGGER.debug(e.getStackTrace());
@@ -139,7 +157,8 @@ public class OrderDAO implements Dao<Order> {
 	public void delete(long id) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();) {
-			statement.executeUpdate("delete from orders where id = " + id);
+			statement.executeUpdate("delete from ordersItems where order_id = " + id);
+			statement.executeUpdate("delete from orders where order_id = " + id);
 		} catch (Exception e) {
 			LOGGER.debug(e.getStackTrace());
 			LOGGER.error(e.getMessage());
