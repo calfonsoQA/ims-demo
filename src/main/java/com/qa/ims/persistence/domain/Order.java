@@ -11,11 +11,18 @@ public class Order {
 	private String order_date;
 	
 	
-	public Order(Long customer_id, Long item_id, String order_date) {
+	
+	public Order(Long id, Long customer_id, String order_date) {
+	
+		this.id = id;
 		this.customer_id = customer_id;
-		this.item_id = item_id;
 		this.order_date = order_date;
 	}
+//	public Order(Long customer_id, Long item_id, String order_date) {
+//		this.customer_id = customer_id;
+//		this.item_id = item_id;
+//		this.order_date = order_date;
+//	}
 	public Order(Long ordItem_id, Long customer_id, Long item_id, String order_date) {
 		this.ordItem_id = ordItem_id;
 		this.customer_id = customer_id;
