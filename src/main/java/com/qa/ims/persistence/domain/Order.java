@@ -15,18 +15,14 @@ public class Order {
 		this.customer_id = customer_id;
 		this.order_date = order_date;
 	}
-//	
-//	public Order(Long id, Long customer_id, String order_date) {
-//	
-//		this.id = id;
-//		this.customer_id = customer_id;
-//		this.order_date = order_date;
-//	}
-	public Order(Long customer_id, Long item_id, String order_date) {
+
+	public Order(Long id, Long customer_id, String order_date) {
+		super();
+		this.id = id;
 		this.customer_id = customer_id;
-		this.item_id = item_id;
 		this.order_date = order_date;
 	}
+
 	public Order(Long ordItem_id, Long customer_id, Long item_id, String order_date) {
 		this.ordItem_id = ordItem_id;
 		this.customer_id = customer_id;
@@ -42,9 +38,14 @@ public class Order {
 	}
 	@Override
 	public String toString() {
-		return "Order [order_id= " + id + ", customer_id= " + customer_id + ", item_id= " + item_id + ", order_date= "
+		return "Order [order_id= " + id + ", customer_id= " + customer_id + ", order_date= "
 				+ order_date + "]";
 	}
+//	@Override
+//	public String toString() {
+//		return "Order [order_id= " + id + ", customer_id= " + customer_id + ", item_id= " + item_id + ", order_date= "
+//				+ order_date + "]";
+//	}
 	public Long getId() {
 		return id;
 	}

@@ -16,7 +16,6 @@ import com.qa.ims.utils.DBUtils;
 public class OrderDAO implements Dao<Order> {
 
 	public static final Logger LOGGER = LogManager.getLogger();
-	private OrderDAO orderDao;
 
 	
 	public Order modelOrderItemFromResultSet(ResultSet resultSet) throws SQLException {
@@ -41,10 +40,10 @@ public class OrderDAO implements Dao<Order> {
 	public List<Order> readAll() {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();
-				ResultSet resultSet = statement.executeQuery("select * from  orders o JOIN ordersItems oi ON o.order_id=oi.order_id");) {
+				ResultSet resultSet = statement.executeQuery("select * from orders");) {
 			List<Order> orders = new ArrayList<>();
 			while (resultSet.next()) {
-				orders.add(modelFromResultSet(resultSet));
+				orders.add(modelOrderItemFromResultSet(resultSet));
 			}
 			return orders;
 		} catch (SQLException e) {
@@ -70,7 +69,7 @@ public class OrderDAO implements Dao<Order> {
 	public Order readLatestOrder() {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();
-				ResultSet resultSet = statement.executeQuery("SELECT order_id FROM orders ORDER BY order_id DESC LIMIT 1");) {
+				ResultSet resultSet = statement.executeQuery("SELECT * FROM orders ORDER BY order_id DESC LIMIT 1");) {
 			resultSet.next();
 			return modelOrderItemFromResultSet(resultSet);
 		} catch (Exception e) {
@@ -85,6 +84,18 @@ public class OrderDAO implements Dao<Order> {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();) {
 			statement.executeUpdate("INSERT INTO orders(customer_id, order_date) values('" + order.getCustomer_id()+ "','" + order.getOrder_date() + "')");
+			//readLatestOrder();
+			//statement.executeUpdate("INSERT INTO ordersItems(order_id, item_id) values('" + order.getId() + "','" + order.getItem_id() + "')");
+			return readLatestOrder();
+		} catch (Exception e) {
+			LOGGER.debug(e.getStackTrace());
+			LOGGER.error(e.getMessage());
+		}
+		return null;
+	}
+	public Order createOrderItem(Order order) {
+		try (Connection connection = DBUtils.getInstance().getConnection();
+				Statement statement = connection.createStatement();) {
 			//readLatestOrder();
 			statement.executeUpdate("INSERT INTO ordersItems(order_id, item_id) values('" + order.getId() + "','" + order.getItem_id() + "')");
 			return readLatest();
