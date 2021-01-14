@@ -100,7 +100,6 @@ public class OrderDAO implements Dao<Order> {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();) {
 			statement.executeUpdate("INSERT INTO orders(customer_id, order_date) values('" + order.getCustomer_id()+ "','" + order.getOrder_date() + "')");
-			//readLatestOrder(); 
 			//statement.executeUpdate("INSERT INTO ordersItems(order_id, item_id) values('" + order.getId() + "','" + order.getItem_id() + "')");
 			//statement.executeUpdate("INSERT INTO ordersItems(order_id, item_id) values('" + resultSet.getLong("order_id") + "','" + order.getItem_id() + "')");
 			statement.executeUpdate("INSERT INTO ordersItems(order_id, item_id) values('" + readLatestOrderID() + "','" + order.getItem_id() + "')");
