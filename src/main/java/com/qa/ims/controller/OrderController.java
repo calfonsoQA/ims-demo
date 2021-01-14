@@ -29,7 +29,7 @@ public class OrderController implements CrudController<Order> {
 	}
 
 	/**
-	 * Reads all customers to the logger
+	 * Reads all orders to the logger
 	 */
 	@Override
 	public List<Order> readAll() {
@@ -43,15 +43,19 @@ public class OrderController implements CrudController<Order> {
 	/**
 	 * Creates a order by taking in user input
 	 */
-	@Override
+	
 	public Order create() {
+		Order o = new Order();
 		LOGGER.info("Please enter the customer id");
 		Long customer_id = Long.valueOf(getInput());
 		LOGGER.info("Please enter the item id");
 		Long item_id = Long.valueOf(getInput());
 		LOGGER.info("Please enter the date");
 		String date = getInput();
-		Order order = orderService.create(new Order(customer_id, date));
+		//Long order_id = o.getId();
+		Long order_id = 1L;
+		//Order order = orderService.create(new Order(customer_id, date));
+		Order order = orderService.create(new Order(order_id, customer_id, item_id, date));
 		LOGGER.info("Order created");
 		return order;
 	}

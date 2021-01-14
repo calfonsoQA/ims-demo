@@ -18,7 +18,7 @@ public class OrderDAO implements Dao<Order> {
 	public static final Logger LOGGER = LogManager.getLogger();
 
 	
-	public Order modelOrderItemFromResultSet(ResultSet resultSet) throws SQLException {
+	public Order modelOrderFromResultSet(ResultSet resultSet) throws SQLException {
 		Long id = resultSet.getLong("order_id");
 		Long customer_id = resultSet.getLong("customer_id");
 		String date = resultSet.getString("order_date");
@@ -33,17 +33,17 @@ public class OrderDAO implements Dao<Order> {
 		Long item_id = resultSet.getLong("item_id");
 		String date = resultSet.getString("order_date");
 		return new Order(id, orditem_id, customer_id, item_id, date);
-		
+		//Order(Long id, Long ordItem_id, Long customer_id, Long item_id, String order_date)
 	}
 
 	@Override
 	public List<Order> readAll() {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();
-				ResultSet resultSet = statement.executeQuery("select * from orders");) {
+				ResultSet resultSet = statement.executeQuery("select * from orders o JOIN ordersItems oi ON o.order_id=oi.order_id");) {
 			List<Order> orders = new ArrayList<>();
 			while (resultSet.next()) {
-				orders.add(modelOrderItemFromResultSet(resultSet));
+				orders.add(modelFromResultSet(resultSet));
 			}
 			return orders;
 		} catch (SQLException e) {
@@ -71,7 +71,7 @@ public class OrderDAO implements Dao<Order> {
 				Statement statement = connection.createStatement();
 				ResultSet resultSet = statement.executeQuery("SELECT * FROM orders ORDER BY order_id DESC LIMIT 1");) {
 			resultSet.next();
-			return modelOrderItemFromResultSet(resultSet);
+			return modelOrderFromResultSet(resultSet);
 		} catch (Exception e) {
 			LOGGER.debug(e);
 			LOGGER.error(e.getMessage());
@@ -84,9 +84,9 @@ public class OrderDAO implements Dao<Order> {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();) {
 			statement.executeUpdate("INSERT INTO orders(customer_id, order_date) values('" + order.getCustomer_id()+ "','" + order.getOrder_date() + "')");
-			//readLatestOrder();
-			//statement.executeUpdate("INSERT INTO ordersItems(order_id, item_id) values('" + order.getId() + "','" + order.getItem_id() + "')");
-			return readLatestOrder();
+			readLatestOrder();
+			statement.executeUpdate("INSERT INTO ordersItems(order_id, item_id) values('" + order.getId() + "','" + order.getItem_id() + "')");
+			return readLatest();
 		} catch (Exception e) {
 			LOGGER.debug(e.getStackTrace());
 			LOGGER.error(e.getMessage());
