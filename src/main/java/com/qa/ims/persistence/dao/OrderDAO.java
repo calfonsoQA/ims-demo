@@ -31,7 +31,7 @@ public class OrderDAO implements Dao<Order> {
 	public List<Order> readAll() {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();
-				ResultSet resultSet = statement.executeQuery("select * from orders");) {
+				ResultSet resultSet = statement.executeQuery("select * from  orders o JOIN ordersItems oi ON o.order_id=oi.orditems_id");) {
 			List<Order> orders = new ArrayList<>();
 			while (resultSet.next()) {
 				orders.add(modelFromResultSet(resultSet));
@@ -47,7 +47,7 @@ public class OrderDAO implements Dao<Order> {
 	public Order readLatest() {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();
-				ResultSet resultSet = statement.executeQuery("SELECT * FROM orders ORDER BY order_id DESC LIMIT 1");) {
+				ResultSet resultSet = statement.executeQuery("SELECT * FROM orders o JOIN ordersItems oi ON o.order_id=oi.orditems_id ORDER BY o.order_id DESC LIMIT 1");) {
 			resultSet.next();
 			return modelFromResultSet(resultSet);
 		} catch (Exception e) {
@@ -57,11 +57,6 @@ public class OrderDAO implements Dao<Order> {
 		return null;
 	}
 
-	/**
-	 * Creates a customer in the database
-	 * 
-	 * @param customer - takes in a customer object. id will be ignored
-	 */
 	@Override
 	public Order create(Order order) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
@@ -79,7 +74,7 @@ public class OrderDAO implements Dao<Order> {
 	public Order readOrder(Long id) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();
-				ResultSet resultSet = statement.executeQuery("SELECT * FROM orders where order_id = " + id);) {
+				ResultSet resultSet = statement.executeQuery("SELECT * FROM orders o JOIN ordersItems oi ON o.order_id=oi.orditems_id where o.order_id = " + id);) {
 			resultSet.next();
 			return modelFromResultSet(resultSet);
 		} catch (Exception e) {
