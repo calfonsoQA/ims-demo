@@ -51,9 +51,9 @@ public class OrderController implements CrudController<Order> {
 		LOGGER.info("Please enter the customer id");
 		Long customer_id = Long.valueOf(getInput());
 		LOGGER.info("Please enter the item id or enter done");
-		while (getInput().toLowerCase() != "done") {
-			items.add(Long.valueOf(getInput()));
-		}
+//		while (getInput().toLowerCase() != "done") {
+//			items.add(Long.valueOf(getInput()));
+//		}
 		Long item_id = Long.valueOf(getInput());
 		LOGGER.info("Please enter the date");
 		String date = getInput();
