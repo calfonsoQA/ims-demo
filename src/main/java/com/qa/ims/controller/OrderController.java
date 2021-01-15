@@ -3,10 +3,12 @@ package com.qa.ims.controller;
 import java.util.ArrayList;
 //import java.util.Date;
 import java.util.List;
+import java.util.Scanner;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.qa.ims.persistence.domain.Domain;
 import com.qa.ims.persistence.domain.Order;
 import com.qa.ims.services.CrudServices;
 import com.qa.ims.utils.Utils;
@@ -46,22 +48,32 @@ public class OrderController implements CrudController<Order> {
 	 */
 
 	public Order create() {
-		Order o = new Order();
+		Scanner scanner = new Scanner(System.in);
+		boolean done = false;
 		List<Long> items = new ArrayList<>();
 		LOGGER.info("Please enter the customer id");
 		Long customer_id = Long.valueOf(getInput());
-		LOGGER.info("Please enter the item id or enter done");
-//		while (getInput().toLowerCase() != "done") {
-//			items.add(Long.valueOf(getInput()));
-//		}
-		Long item_id = Long.valueOf(getInput());
+		LOGGER.info("Please enter the item id");
+		items.add(Long.valueOf(getInput()));
+		while (!done) {
+			LOGGER.info("Add more items? y/n");
+			String yn = String.valueOf(Utils.getInstance().getInput().toUpperCase());
+			if (yn.equals("Y")) {
+				LOGGER.info("Please enter the item id");
+				items.add(Long.valueOf(getInput()));
+			} else if (yn.equals("N")) {
+				done = true;
+			} else {
+				LOGGER.info("Invalid selection please try again");
+			}
+		}
+		//Long item_id = Long.valueOf(getInput());
 		LOGGER.info("Please enter the date");
 		String date = getInput();
-		// Long order_id = o.getId();
-		Long order_id = 1L;
-		// Order order = orderService.create(new Order(customer_id, date));
 
-		Order order = orderService.create(new Order(order_id, customer_id, item_id, date));
+		Long order_id = 1L;
+		Order order = orderService.create(new Order(order_id, customer_id, items, date));
+//		Order order = orderService.create(new Order(order_id, customer_id, item_id, date));
 
 		LOGGER.info("Order created");
 		return order;

@@ -100,9 +100,13 @@ public class OrderDAO implements Dao<Order> {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();) {
 			statement.executeUpdate("INSERT INTO orders(customer_id, order_date) values('" + order.getCustomer_id()+ "','" + order.getOrder_date() + "')");
-			//statement.executeUpdate("INSERT INTO ordersItems(order_id, item_id) values('" + order.getId() + "','" + order.getItem_id() + "')");
-			//statement.executeUpdate("INSERT INTO ordersItems(order_id, item_id) values('" + resultSet.getLong("order_id") + "','" + order.getItem_id() + "')");
-			statement.executeUpdate("INSERT INTO ordersItems(order_id, item_id) values('" + readLatestOrderID() + "','" + order.getItem_id() + "')");
+			//ArrayList<Order> items = ArrayList<Order>(); 
+			List<Long> items_id = new ArrayList<Long>();
+			items_id = order.getItems_id();
+			for (Long i: items_id) {
+			statement.executeUpdate("INSERT INTO ordersItems(order_id, item_id) values('" + readLatestOrderID() + "','" + i + "')");
+			//statement.executeUpdate("INSERT INTO ordersItems(order_id, item_id) values('" + readLatestOrderID() + "','" + order.getItem_id() + "')");
+			}
 			return readLatest();
 		} catch (Exception e) {
 			LOGGER.debug(e.getStackTrace());

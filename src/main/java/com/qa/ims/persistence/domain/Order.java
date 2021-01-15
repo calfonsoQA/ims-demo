@@ -1,7 +1,9 @@
 package com.qa.ims.persistence.domain;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Order {
 
@@ -10,6 +12,7 @@ public class Order {
 	private Long customer_id;
 	private Long item_id;
 	private String order_date;
+	private List<Long> items_id = new ArrayList<>();
 
 	public Order() {
 
@@ -33,12 +36,22 @@ public class Order {
 		this.order_date = order_date;
 	}
 
-	public Order(Long id, Long customer_id, Long item_id, String order_date) {
+	public Order(Long id, Long customer_id, List<Long> items_id,String order_date) {
+		super();
 		this.id = id;
 		this.customer_id = customer_id;
-		this.item_id = item_id;
 		this.order_date = order_date;
+		this.items_id = items_id;
 	}
+	
+//	public Order(Long id, Long customer_id, Long item_id, String order_date) {
+//		this.id = id;
+//		this.customer_id = customer_id;
+//		this.item_id = item_id;
+//		this.order_date = order_date;
+//	}
+
+	
 
 	public Order(Long id, Long ordItem_id, Long customer_id, Long item_id, String order_date) {
 		this.id = id;
@@ -97,6 +110,14 @@ public class Order {
 
 	public void setOrder_date(String order_date) {
 		this.order_date = order_date;
+	}
+
+	public List<Long> getItems_id() {
+		return items_id;
+	}
+
+	public void setItems_id(List<Long> items_id) {
+		this.items_id = items_id;
 	}
 
 }
