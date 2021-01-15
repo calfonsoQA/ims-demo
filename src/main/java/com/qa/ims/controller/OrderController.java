@@ -1,5 +1,6 @@
 package com.qa.ims.controller;
 
+import java.util.ArrayList;
 //import java.util.Date;
 import java.util.List;
 
@@ -43,24 +44,28 @@ public class OrderController implements CrudController<Order> {
 	/**
 	 * Creates a order by taking in user input
 	 */
-	
+
 	public Order create() {
 		Order o = new Order();
+		List<Long> items = new ArrayList<>();
 		LOGGER.info("Please enter the customer id");
 		Long customer_id = Long.valueOf(getInput());
-		LOGGER.info("Please enter the item id");
+		LOGGER.info("Please enter the item id or enter done");
+		while (getInput().toLowerCase() != "done") {
+			items.add(Long.valueOf(getInput()));
+		}
 		Long item_id = Long.valueOf(getInput());
 		LOGGER.info("Please enter the date");
 		String date = getInput();
-		//Long order_id = o.getId();
+		// Long order_id = o.getId();
 		Long order_id = 1L;
-		//Order order = orderService.create(new Order(customer_id, date));
+		// Order order = orderService.create(new Order(customer_id, date));
+
 		Order order = orderService.create(new Order(order_id, customer_id, item_id, date));
-//							Order(Long id, Long customer_id, Long item_id, String order_date)
+
 		LOGGER.info("Order created");
 		return order;
 	}
-	
 
 	/**
 	 * Updates an existing order by taking in user input

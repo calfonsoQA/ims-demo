@@ -30,29 +30,36 @@ public class IMS {
 
 		DBUtils.getInstance(username, password);
 		boolean stop = false;
-		do {
+		while(!stop) {
 			LOGGER.info("Which entity would you like to use?");
 			Domain.printDomains();
 
 			Domain domain = Domain.getDomain();
-
-			LOGGER.info("What would you like to do with " + domain.name().toLowerCase() + ":");
-
-			Action.printActions();
-			Action action = Action.getAction();
+			
+//			LOGGER.info("What would you like to do with " + domain.name().toLowerCase() + ":");
+//			Action.printActions();
+//			Action action = Action.getAction();
 
 			switch (domain) {
 			case CUSTOMER:
-				CustomerController customerController = new CustomerController(
-						new CustomerServices(new CustomerDaoMysql()));
+				CustomerController customerController = new CustomerController(new CustomerServices(new CustomerDaoMysql()));
+				LOGGER.info("What would you like to do with " + domain.name().toLowerCase() + ":");
+				Action.printActions();
+				Action action = Action.getAction();
 				doAction(customerController, action);
 				break;
 			case ITEM:
 				ItemController itemController = new ItemController(new ItemServices(new ItemDAO()));
+				LOGGER.info("What would you like to do with " + domain.name().toLowerCase() + ":");
+				Action.printActions();
+				action = Action.getAction();
 				doAction(itemController, action);
 				break;
 			case ORDER:
 				OrderController orderController = new OrderController(new OrderServices(new OrderDAO()));
+				LOGGER.info("What would you like to do with " + domain.name().toLowerCase() + ":");
+				Action.printActions();
+				action = Action.getAction();
 				doAction(orderController, action);
 				break;
 			case STOP:
@@ -61,7 +68,8 @@ public class IMS {
 			default:
 				break;
 			}
-		} while (!stop);
+			
+		} 
 		LOGGER.info("SO LONG!");
 	}
 
