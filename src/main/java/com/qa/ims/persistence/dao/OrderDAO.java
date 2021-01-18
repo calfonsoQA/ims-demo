@@ -36,9 +36,10 @@ public class OrderDAO implements Dao<Order> {
 		Long customer_id = resultSet.getLong("customer_id");
 		Long item_id = resultSet.getLong("item_id");
 		String date = resultSet.getString("order_date");
-		//int quantity = resultSet.getInt("quantity");
+		Double total_price = resultSet.getDouble("total_price");
+		int quantity = resultSet.getInt("quantity");
 		
-		return new Order(id, orditem_id, customer_id, item_id, date);
+		return new Order(id, orditem_id, customer_id, item_id, date).total_price(total_price).quantity(quantity);
 		//Order(Long id, Long ordItem_id, Long customer_id, Long item_id, String order_date)
 	}
 

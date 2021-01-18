@@ -14,7 +14,8 @@ public class Order {
 	private String order_date;
 	private List<Long> items_id = new ArrayList<>();
 	private int quantity; 
-	private List<Integer> quantities = new ArrayList<>(); 
+	private List<Integer> quantities = new ArrayList<>();
+	private Double total_price;
 
 	public Order() {
 
@@ -69,8 +70,8 @@ public class Order {
 //	}
 	@Override
 	public String toString() {
-		return "Order [order_id= " + id + ", customer_id= " + customer_id + ", item_id= " + item_id + ", order_date= "
-				+ order_date + "]";
+		return "Order [order_id= " + id + ", customer_id= " + customer_id + ", item_id= " + item_id + ", quantity= " + quantity + ", order_date= "
+				+ order_date + ", total price= £" + total_price +"]";
 	}
 
 	public Long getId() {
@@ -128,14 +129,7 @@ public class Order {
 	public void setQuantities(List<Integer> quantities) {
 		this.quantities = quantities;
 	}
-	public Order quantity(int quantity) {
-		this.quantity = quantity;
-		return this;
-	}
-	public Order quantities(List<Integer> quantities) {
-		this.quantities = quantities;
-		return this;
-	}
+	
 
 	public int getQuantity() {
 		return quantity;
@@ -144,5 +138,28 @@ public class Order {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
+
+	public Double getTotal_price() {
+		return total_price;
+	}
+
+	public void setTotal_price(Double total_price) {
+		this.total_price = total_price;
+	}
+	
+//	BUILDERS
+	public Order quantity(int quantity) {
+		this.quantity = quantity;
+		return this;
+	}
+	public Order quantities(List<Integer> quantities) {
+		this.quantities = quantities;
+		return this;
+	}
+	public Order total_price(Double total_price) {
+		this.total_price = total_price;
+		return this;
+	}
+	
 
 }
