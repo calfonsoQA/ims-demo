@@ -96,12 +96,12 @@ public class OrderDAO implements Dao<Order> {
 		}
 		return null;
 	}
-	public double calcTotalPrice() {
+	public Double calcTotalPrice() {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();
-				ResultSet resultSet = statement.executeQuery("SELECT price FROM items ORDER BY order_id DESC LIMIT 1");) {
+				ResultSet resultSet = statement.executeQuery("SELECT SUM(price*quantity) AS total FROM items i JOIN ordersItems oi ON i.item_id=oi.item_id WHERE order_id="+readLatestOrderID());) { 
 			resultSet.next();
-			return  resultSet.getLong("order_id");
+			return  resultSet.getDouble("total");
 		} catch (Exception e) {
 			LOGGER.debug(e);
 			LOGGER.error(e.getMessage());
@@ -125,6 +125,7 @@ public class OrderDAO implements Dao<Order> {
 //			statement.executeUpdate("INSERT INTO ordersItems(order_id, item_id) values('" + readLatestOrderID() + "','" + i + "')");
 			j++;
 			}
+			statement.executeUpdate("update orders set total_price ='" + calcTotalPrice() + "' where order_id =" + readLatestOrderID());
 			return readLatest();
 		} catch (Exception e) {
 			LOGGER.debug(e.getStackTrace());
