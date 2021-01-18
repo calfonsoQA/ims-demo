@@ -71,13 +71,11 @@ public class OrderController implements CrudController<Order> {
 				LOGGER.info("Invalid selection please try again");
 			}
 		}
-		//Long item_id = Long.valueOf(getInput());
 		LOGGER.info("Please enter the date");
 		String date = getInput();
 
-		Long order_id = 1L;
+		Long order_id = 1L; // dummy variable
 		Order order = orderService.create(new Order(order_id, customer_id, items, date).quantities(quantities));
-//		Order order = orderService.create(new Order(order_id, customer_id, item_id, date));
 
 		LOGGER.info("Order created");
 		return order;
@@ -88,6 +86,8 @@ public class OrderController implements CrudController<Order> {
 	 */
 	@Override
 	public Order update() {
+		List<Long> items = new ArrayList<>();
+		List<Integer> quantities = new ArrayList<>();
 		LOGGER.info("Please enter the id of the order you would like to update");
 		Long id = Long.valueOf(getInput());
 		LOGGER.info("Please enter the customer id");
