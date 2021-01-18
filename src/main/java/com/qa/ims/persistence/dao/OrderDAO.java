@@ -36,6 +36,8 @@ public class OrderDAO implements Dao<Order> {
 		Long customer_id = resultSet.getLong("customer_id");
 		Long item_id = resultSet.getLong("item_id");
 		String date = resultSet.getString("order_date");
+		//int quantity = resultSet.getInt("quantity");
+		
 		return new Order(id, orditem_id, customer_id, item_id, date);
 		//Order(Long id, Long ordItem_id, Long customer_id, Long item_id, String order_date)
 	}
@@ -94,18 +96,34 @@ public class OrderDAO implements Dao<Order> {
 		}
 		return null;
 	}
+	public double calcTotalPrice() {
+		try (Connection connection = DBUtils.getInstance().getConnection();
+				Statement statement = connection.createStatement();
+				ResultSet resultSet = statement.executeQuery("SELECT price FROM items ORDER BY order_id DESC LIMIT 1");) {
+			resultSet.next();
+			return  resultSet.getLong("order_id");
+		} catch (Exception e) {
+			LOGGER.debug(e);
+			LOGGER.error(e.getMessage());
+		}
+		return null;
+	}
 
 	@Override
 	public Order create(Order order) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();) {
 			statement.executeUpdate("INSERT INTO orders(customer_id, order_date) values('" + order.getCustomer_id()+ "','" + order.getOrder_date() + "')");
-			//ArrayList<Order> items = ArrayList<Order>(); 
 			List<Long> items_id = new ArrayList<Long>();
 			items_id = order.getItems_id();
+			List<Integer> quantity = new ArrayList<Integer>();
+			quantity = order.getQuantities();
+			int j =0;
 			for (Long i: items_id) {
-			statement.executeUpdate("INSERT INTO ordersItems(order_id, item_id) values('" + readLatestOrderID() + "','" + i + "')");
-			//statement.executeUpdate("INSERT INTO ordersItems(order_id, item_id) values('" + readLatestOrderID() + "','" + order.getItem_id() + "')");
+				
+					statement.executeUpdate("INSERT INTO ordersItems(order_id, item_id, quantity) values('" + readLatestOrderID() + "','" + i + "','" + quantity.get(j) + "')");
+//			statement.executeUpdate("INSERT INTO ordersItems(order_id, item_id) values('" + readLatestOrderID() + "','" + i + "')");
+			j++;
 			}
 			return readLatest();
 		} catch (Exception e) {

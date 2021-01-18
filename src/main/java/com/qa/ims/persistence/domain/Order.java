@@ -13,6 +13,8 @@ public class Order {
 	private Long item_id;
 	private String order_date;
 	private List<Long> items_id = new ArrayList<>();
+	private int quantity; 
+	private List<Integer> quantities = new ArrayList<>(); 
 
 	public Order() {
 
@@ -50,7 +52,6 @@ public class Order {
 //		this.item_id = item_id;
 //		this.order_date = order_date;
 //	}
-
 	
 
 	public Order(Long id, Long ordItem_id, Long customer_id, Long item_id, String order_date) {
@@ -118,6 +119,30 @@ public class Order {
 
 	public void setItems_id(List<Long> items_id) {
 		this.items_id = items_id;
+	}
+
+	public List<Integer> getQuantities() {
+		return quantities;
+	}
+
+	public void setQuantities(List<Integer> quantities) {
+		this.quantities = quantities;
+	}
+	public Order quantity(int quantity) {
+		this.quantity = quantity;
+		return this;
+	}
+	public Order quantities(List<Integer> quantities) {
+		this.quantities = quantities;
+		return this;
+	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
 
 }

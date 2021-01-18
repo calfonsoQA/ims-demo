@@ -48,19 +48,23 @@ public class OrderController implements CrudController<Order> {
 	 */
 
 	public Order create() {
-		Scanner scanner = new Scanner(System.in);
 		boolean done = false;
 		List<Long> items = new ArrayList<>();
+		List<Integer> quantities = new ArrayList<>();
 		LOGGER.info("Please enter the customer id");
 		Long customer_id = Long.valueOf(getInput());
 		LOGGER.info("Please enter the item id");
 		items.add(Long.valueOf(getInput()));
+		LOGGER.info("Please enter the quantity");
+		quantities.add(Integer.valueOf(getInput()));
 		while (!done) {
 			LOGGER.info("Add more items? y/n");
 			String yn = String.valueOf(Utils.getInstance().getInput().toUpperCase());
 			if (yn.equals("Y")) {
 				LOGGER.info("Please enter the item id");
 				items.add(Long.valueOf(getInput()));
+				LOGGER.info("Please enter the quantity");
+				quantities.add(Integer.valueOf(getInput()));
 			} else if (yn.equals("N")) {
 				done = true;
 			} else {
@@ -72,7 +76,7 @@ public class OrderController implements CrudController<Order> {
 		String date = getInput();
 
 		Long order_id = 1L;
-		Order order = orderService.create(new Order(order_id, customer_id, items, date));
+		Order order = orderService.create(new Order(order_id, customer_id, items, date).quantities(quantities));
 //		Order order = orderService.create(new Order(order_id, customer_id, item_id, date));
 
 		LOGGER.info("Order created");
