@@ -164,10 +164,17 @@ public class OrderDAO implements Dao<Order> {
 			items_id = order.getItems_id();
 			List<Integer> quantity = new ArrayList<Integer>();
 			quantity = order.getQuantities();
-			int j = 0;
-			for (Long i : items_id) {
-				statement.executeUpdate("INSERT INTO ordersItems(order_id, item_id, quantity) values('"	+ order.getId() + "','" + i + "','" + quantity.get(j) + "')");
-				j++;
+			boolean updateAddItems = order.getUpdateAddItems();
+			boolean updateDeleteItems = order.getUpdateDeleteItems();
+			if (updateAddItems) {
+				int j = 0;
+				for (Long i : items_id) {
+					statement.executeUpdate("INSERT INTO ordersItems(order_id, item_id, quantity) values('"	+ order.getId() + "','" + i + "','" + quantity.get(j) + "')");
+					j++;
+				}
+			}
+			if (updateDeleteItems) {
+				statement.executeUpdate("delete from ordersItems where item_id = " + id);
 			}
 			statement.executeUpdate(
 					"update orders set total_price ='" + updateTotalPrice(order) + "' where order_id =" + order.getId());
@@ -185,6 +192,16 @@ public class OrderDAO implements Dao<Order> {
 				Statement statement = connection.createStatement();) {
 			statement.executeUpdate("delete from ordersItems where order_id = " + id);
 			statement.executeUpdate("delete from orders where order_id = " + id);
+		} catch (Exception e) {
+			LOGGER.debug(e.getStackTrace());
+			LOGGER.error(e.getMessage());
+		}
+	}
+	public void deleteItems(long id) {
+		try (Connection connection = DBUtils.getInstance().getConnection();
+				Statement statement = connection.createStatement();) {
+			statement.executeUpdate("delete from ordersItems where item_id = " + id);
+			//statement.executeUpdate("delete from orders where order_id = " + id);
 		} catch (Exception e) {
 			LOGGER.debug(e.getStackTrace());
 			LOGGER.error(e.getMessage());

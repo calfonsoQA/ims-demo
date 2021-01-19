@@ -82,21 +82,65 @@ public class OrderController implements CrudController<Order> {
 	/**
 	 * Updates an existing order by taking in user input
 	 */
+//	@Override
+//	public Order update() {
+//		boolean done = false;
+//		List<Long> items = new ArrayList<>();
+//		List<Integer> quantities = new ArrayList<>();
+//		LOGGER.info("Please enter the id of the order you would like to update");
+//		Long id = Long.valueOf(getInput());
+//		LOGGER.info("Please enter the customer id");
+//		Long customer_id = Long.valueOf(getInput());
+//		LOGGER.info("Please enter the item id");
+//		items.add(Long.valueOf(getInput()));
+//		LOGGER.info("Please enter the quantity");
+//		quantities.add(Integer.valueOf(getInput()));
+//		while (!done) {
+//			LOGGER.info("Add more items? y/n");
+//			String yn = String.valueOf(Utils.getInstance().getInput().toUpperCase());
+//			if (yn.equals("Y")) {
+//				LOGGER.info("Please enter the item id");
+//				items.add(Long.valueOf(getInput()));
+//				LOGGER.info("Please enter the quantity");
+//				quantities.add(Integer.valueOf(getInput()));
+//			} else if (yn.equals("N")) {
+//				done = true;
+//			} else {
+//				LOGGER.info("Invalid selection please try again");
+//			}
+//		}
+//		LOGGER.info("Please enter the date");
+//		String date = getInput();
+//		Order order = orderService.update(new Order(id, customer_id, items, date).quantities(quantities));
+//		LOGGER.info("Order Updated");
+//		return order;
+//	}
 	@Override
 	public Order update() {
 		boolean done = false;
+		boolean updateAddItems= false;
+		boolean updateDeleteItems= false;
 		List<Long> items = new ArrayList<>();
 		List<Integer> quantities = new ArrayList<>();
 		LOGGER.info("Please enter the id of the order you would like to update");
 		Long id = Long.valueOf(getInput());
 		LOGGER.info("Please enter the customer id");
 		Long customer_id = Long.valueOf(getInput());
-		LOGGER.info("Please enter the item id");
-		items.add(Long.valueOf(getInput()));
-		LOGGER.info("Please enter the quantity");
-		quantities.add(Integer.valueOf(getInput()));
 		while (!done) {
-			LOGGER.info("Add more items? y/n");
+			LOGGER.info("Would you like to delete items? y/n");
+			String yn = String.valueOf(Utils.getInstance().getInput().toUpperCase());
+			if (yn.equals("Y")) {
+				LOGGER.info("Please enter the item id");
+				items.add(Long.valueOf(getInput()));
+			} else if (yn.equals("N")) {
+				done = true;
+			} else {
+				LOGGER.info("Invalid selection please try again");
+			}
+		}
+		done = false;
+		while (!done) {
+			LOGGER.info("Would you like to add items? y/n");
 			String yn = String.valueOf(Utils.getInstance().getInput().toUpperCase());
 			if (yn.equals("Y")) {
 				LOGGER.info("Please enter the item id");
@@ -111,7 +155,7 @@ public class OrderController implements CrudController<Order> {
 		}
 		LOGGER.info("Please enter the date");
 		String date = getInput();
-		Order order = orderService.update(new Order(id, customer_id, items, date).quantities(quantities));
+		Order order = orderService.update(new Order(id, customer_id, items, date).quantities(quantities).updateAddItems(updateAddItems).updateDeleteItems(updateDeleteItems));
 		LOGGER.info("Order Updated");
 		return order;
 	}
