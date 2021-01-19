@@ -130,6 +130,7 @@ public class OrderController implements CrudController<Order> {
 			LOGGER.info("Would you like to delete items? y/n");
 			String yn = String.valueOf(Utils.getInstance().getInput().toUpperCase());
 			if (yn.equals("Y")) {
+				updateDeleteItems = true;
 				LOGGER.info("Please enter the item id");
 				items.add(Long.valueOf(getInput()));
 			} else if (yn.equals("N")) {
@@ -143,6 +144,7 @@ public class OrderController implements CrudController<Order> {
 			LOGGER.info("Would you like to add items? y/n");
 			String yn = String.valueOf(Utils.getInstance().getInput().toUpperCase());
 			if (yn.equals("Y")) {
+				updateAddItems = true;
 				LOGGER.info("Please enter the item id");
 				items.add(Long.valueOf(getInput()));
 				LOGGER.info("Please enter the quantity");

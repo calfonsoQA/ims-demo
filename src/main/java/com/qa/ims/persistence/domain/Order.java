@@ -18,6 +18,7 @@ public class Order {
 	private Double total_price;
 	private boolean updateAddItems;
 	private boolean updateDeleteItems;
+	private List<Long> items_id_delete = new ArrayList<>();
 
 	public Order() {
 
@@ -170,6 +171,13 @@ public boolean getUpdateAddItems() {
 	public void setUpdateDeleteItems(boolean updateDeleteItems) {
 		this.updateDeleteItems = updateDeleteItems;
 	}
+	public List<Long> getItems_id_delete() {
+		return items_id_delete;
+	}
+
+	public void setItems_id_delete(List<Long> items_id_delete) {
+		this.items_id_delete = items_id_delete;
+	}
 
 	//	BUILDERS
 	public Order quantity(int quantity) {
@@ -192,6 +200,12 @@ public boolean getUpdateAddItems() {
 		this.updateDeleteItems = updateDeleteItems;
 		return this;
 	}
+	public Order items_id_delete(List<Long> items_id_delete) {
+		this.items_id_delete = items_id_delete;
+		return this;
+	}
+
+	
 	
 
 }

@@ -166,6 +166,8 @@ public class OrderDAO implements Dao<Order> {
 			quantity = order.getQuantities();
 			boolean updateAddItems = order.getUpdateAddItems();
 			boolean updateDeleteItems = order.getUpdateDeleteItems();
+			List<Long> itemsDelete = new ArrayList<Long>();
+			itemsDelete = order.getItems_id_delete();
 			if (updateAddItems) {
 				int j = 0;
 				for (Long i : items_id) {
@@ -174,7 +176,10 @@ public class OrderDAO implements Dao<Order> {
 				}
 			}
 			if (updateDeleteItems) {
-				statement.executeUpdate("delete from ordersItems where item_id = " + id);
+				//int j = 0;
+				for (Long i : itemsDelete) {
+					statement.executeUpdate("delete from ordersItems where item_id = " + i);
+				}
 			}
 			statement.executeUpdate(
 					"update orders set total_price ='" + updateTotalPrice(order) + "' where order_id =" + order.getId());
@@ -192,16 +197,6 @@ public class OrderDAO implements Dao<Order> {
 				Statement statement = connection.createStatement();) {
 			statement.executeUpdate("delete from ordersItems where order_id = " + id);
 			statement.executeUpdate("delete from orders where order_id = " + id);
-		} catch (Exception e) {
-			LOGGER.debug(e.getStackTrace());
-			LOGGER.error(e.getMessage());
-		}
-	}
-	public void deleteItems(long id) {
-		try (Connection connection = DBUtils.getInstance().getConnection();
-				Statement statement = connection.createStatement();) {
-			statement.executeUpdate("delete from ordersItems where item_id = " + id);
-			//statement.executeUpdate("delete from orders where order_id = " + id);
 		} catch (Exception e) {
 			LOGGER.debug(e.getStackTrace());
 			LOGGER.error(e.getMessage());
