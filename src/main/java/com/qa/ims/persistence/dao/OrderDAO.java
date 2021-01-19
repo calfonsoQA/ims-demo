@@ -142,8 +142,7 @@ public class OrderDAO implements Dao<Order> {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();
 				ResultSet resultSet = statement.executeQuery(
-						"SELECT * FROM orders o JOIN ordersItems oi ON o.order_id=oi.orditems_id where o.order_id = "
-								+ id);) {
+						"SELECT * FROM orders o JOIN ordersItems oi ON o.order_id=oi.order_id where o.order_id = "+ id);) {
 			resultSet.next();
 			return modelFromResultSet(resultSet);
 		} catch (Exception e) {
@@ -168,6 +167,12 @@ public class OrderDAO implements Dao<Order> {
 			boolean updateDeleteItems = order.getUpdateDeleteItems();
 			List<Long> itemsDelete = new ArrayList<Long>();
 			itemsDelete = order.getItems_id_delete();
+			if (updateDeleteItems) {
+				//int j = 0;
+				for (Long i : itemsDelete) {
+					statement.executeUpdate("delete from ordersItems where item_id = " + i);
+				}
+			}
 			if (updateAddItems) {
 				int j = 0;
 				for (Long i : items_id) {
@@ -175,14 +180,7 @@ public class OrderDAO implements Dao<Order> {
 					j++;
 				}
 			}
-			if (updateDeleteItems) {
-				//int j = 0;
-				for (Long i : itemsDelete) {
-					statement.executeUpdate("delete from ordersItems where item_id = " + i);
-				}
-			}
-			statement.executeUpdate(
-					"update orders set total_price ='" + updateTotalPrice(order) + "' where order_id =" + order.getId());
+			statement.executeUpdate("update orders set total_price ='" + updateTotalPrice(order) + "' where order_id =" + order.getId());
 			return readOrder(order.getId());
 		} catch (Exception e) {
 			LOGGER.debug(e.getStackTrace());

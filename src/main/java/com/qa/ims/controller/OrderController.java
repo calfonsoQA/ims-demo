@@ -121,6 +121,7 @@ public class OrderController implements CrudController<Order> {
 		boolean updateAddItems= false;
 		boolean updateDeleteItems= false;
 		List<Long> items = new ArrayList<>();
+		List<Long> itemsDelete = new ArrayList<>();
 		List<Integer> quantities = new ArrayList<>();
 		LOGGER.info("Please enter the id of the order you would like to update");
 		Long id = Long.valueOf(getInput());
@@ -132,7 +133,7 @@ public class OrderController implements CrudController<Order> {
 			if (yn.equals("Y")) {
 				updateDeleteItems = true;
 				LOGGER.info("Please enter the item id");
-				items.add(Long.valueOf(getInput()));
+				itemsDelete.add(Long.valueOf(getInput()));
 			} else if (yn.equals("N")) {
 				done = true;
 			} else {
@@ -157,7 +158,7 @@ public class OrderController implements CrudController<Order> {
 		}
 		LOGGER.info("Please enter the date");
 		String date = getInput();
-		Order order = orderService.update(new Order(id, customer_id, items, date).quantities(quantities).updateAddItems(updateAddItems).updateDeleteItems(updateDeleteItems));
+		Order order = orderService.update(new Order(id, customer_id, items, date).quantities(quantities).updateAddItems(updateAddItems).updateDeleteItems(updateDeleteItems).items_id_delete(itemsDelete));
 		LOGGER.info("Order Updated");
 		return order;
 	}
