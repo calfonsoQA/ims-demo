@@ -23,13 +23,6 @@ public class OrderDAO implements Dao<Order> {
 		return new Order(id);
 	}
 
-	public Order modelOrderFromResultSet(ResultSet resultSet) throws SQLException {
-		Long id = resultSet.getLong("order_id");
-		Long customer_id = resultSet.getLong("customer_id");
-		String date = resultSet.getString("order_date");
-		return new Order(id, customer_id, date);
-	}
-
 	@Override
 	public Order modelFromResultSet(ResultSet resultSet) throws SQLException {
 		Long id = resultSet.getLong("order_id");
@@ -105,6 +98,20 @@ public class OrderDAO implements Dao<Order> {
 		}
 		return null;
 	}
+	public Double updateTotalPrice(Order order) {
+		try (Connection connection = DBUtils.getInstance().getConnection();
+				Statement statement = connection.createStatement();
+				ResultSet resultSet = statement.executeQuery(
+						"SELECT SUM(price*quantity) AS total FROM items i JOIN ordersItems oi ON i.item_id=oi.item_id WHERE order_id="
+								+ order.getId());) {
+			resultSet.next();
+			return resultSet.getDouble("total");
+		} catch (Exception e) {
+			LOGGER.debug(e);
+			LOGGER.error(e.getMessage());
+		}
+		return null;
+	}
 
 	@Override
 	public Order create(Order order) {
@@ -118,9 +125,7 @@ public class OrderDAO implements Dao<Order> {
 			quantity = order.getQuantities();
 			int j = 0;
 			for (Long i : items_id) {
-
-				statement.executeUpdate("INSERT INTO ordersItems(order_id, item_id, quantity) values('"+ readLatestOrderID() + "','" + i + "','" + quantity.get(j) + "')");
-//			statement.executeUpdate("INSERT INTO ordersItems(order_id, item_id) values('" + readLatestOrderID() + "','" + i + "')");
+				statement.executeUpdate("INSERT INTO ordersItems(order_id, item_id, quantity) values('"	+ readLatestOrderID() + "','" + i + "','" + quantity.get(j) + "')");
 				j++;
 			}
 			statement.executeUpdate(
@@ -154,8 +159,18 @@ public class OrderDAO implements Dao<Order> {
 				Statement statement = connection.createStatement();) {
 			statement.executeUpdate("update orders set customer_id ='" + order.getCustomer_id() + "', order_date ='"
 					+ order.getOrder_date() + "' where order_id =" + order.getId());
+//			statement.executeUpdate("update ordersItems set item_id ='" + order.getItem_id() + "' where order_id =" + order.getId());
+			List<Long> items_id = new ArrayList<Long>();
+			items_id = order.getItems_id();
+			List<Integer> quantity = new ArrayList<Integer>();
+			quantity = order.getQuantities();
+			int j = 0;
+			for (Long i : items_id) {
+				statement.executeUpdate("INSERT INTO ordersItems(order_id, item_id, quantity) values('"	+ order.getId() + "','" + i + "','" + quantity.get(j) + "')");
+				j++;
+			}
 			statement.executeUpdate(
-					"update ordersItems set item_id ='" + order.getItem_id() + "' where order_id =" + order.getId());
+					"update orders set total_price ='" + updateTotalPrice(order) + "' where order_id =" + order.getId());
 			return readOrder(order.getId());
 		} catch (Exception e) {
 			LOGGER.debug(e.getStackTrace());

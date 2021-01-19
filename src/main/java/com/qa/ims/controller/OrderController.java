@@ -73,9 +73,7 @@ public class OrderController implements CrudController<Order> {
 		}
 		LOGGER.info("Please enter the date");
 		String date = getInput();
-
-		Long order_id = 1L; // dummy variable
-		Order order = orderService.create(new Order(order_id, customer_id, items, date).quantities(quantities));
+		Order order = orderService.create(new Order(customer_id, items, date).quantities(quantities));
 
 		LOGGER.info("Order created");
 		return order;
@@ -86,6 +84,7 @@ public class OrderController implements CrudController<Order> {
 	 */
 	@Override
 	public Order update() {
+		boolean done = false;
 		List<Long> items = new ArrayList<>();
 		List<Integer> quantities = new ArrayList<>();
 		LOGGER.info("Please enter the id of the order you would like to update");
@@ -93,10 +92,26 @@ public class OrderController implements CrudController<Order> {
 		LOGGER.info("Please enter the customer id");
 		Long customer_id = Long.valueOf(getInput());
 		LOGGER.info("Please enter the item id");
-		Long item_id = Long.valueOf(getInput());
-		LOGGER.info("Please enter the order date");
-		String date = String.valueOf(getInput());
-		Order order = orderService.update(new Order(id, id, customer_id, item_id, date));
+		items.add(Long.valueOf(getInput()));
+		LOGGER.info("Please enter the quantity");
+		quantities.add(Integer.valueOf(getInput()));
+		while (!done) {
+			LOGGER.info("Add more items? y/n");
+			String yn = String.valueOf(Utils.getInstance().getInput().toUpperCase());
+			if (yn.equals("Y")) {
+				LOGGER.info("Please enter the item id");
+				items.add(Long.valueOf(getInput()));
+				LOGGER.info("Please enter the quantity");
+				quantities.add(Integer.valueOf(getInput()));
+			} else if (yn.equals("N")) {
+				done = true;
+			} else {
+				LOGGER.info("Invalid selection please try again");
+			}
+		}
+		LOGGER.info("Please enter the date");
+		String date = getInput();
+		Order order = orderService.update(new Order(id, customer_id, items, date).quantities(quantities));
 		LOGGER.info("Order Updated");
 		return order;
 	}
