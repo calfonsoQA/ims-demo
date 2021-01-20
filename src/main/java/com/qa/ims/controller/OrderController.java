@@ -75,46 +75,14 @@ public class OrderController implements CrudController<Order> {
 		String date = getInput();
 		Order order = orderService.create(new Order(customer_id, items, date).quantities(quantities));
 
-		LOGGER.info("Order created");
+		LOGGER.info("-Order created-");
 		return order;
 	}
 
 	/**
 	 * Updates an existing order by taking in user input
 	 */
-//	@Override
-//	public Order update() {
-//		boolean done = false;
-//		List<Long> items = new ArrayList<>();
-//		List<Integer> quantities = new ArrayList<>();
-//		LOGGER.info("Please enter the id of the order you would like to update");
-//		Long id = Long.valueOf(getInput());
-//		LOGGER.info("Please enter the customer id");
-//		Long customer_id = Long.valueOf(getInput());
-//		LOGGER.info("Please enter the item id");
-//		items.add(Long.valueOf(getInput()));
-//		LOGGER.info("Please enter the quantity");
-//		quantities.add(Integer.valueOf(getInput()));
-//		while (!done) {
-//			LOGGER.info("Add more items? y/n");
-//			String yn = String.valueOf(Utils.getInstance().getInput().toUpperCase());
-//			if (yn.equals("Y")) {
-//				LOGGER.info("Please enter the item id");
-//				items.add(Long.valueOf(getInput()));
-//				LOGGER.info("Please enter the quantity");
-//				quantities.add(Integer.valueOf(getInput()));
-//			} else if (yn.equals("N")) {
-//				done = true;
-//			} else {
-//				LOGGER.info("Invalid selection please try again");
-//			}
-//		}
-//		LOGGER.info("Please enter the date");
-//		String date = getInput();
-//		Order order = orderService.update(new Order(id, customer_id, items, date).quantities(quantities));
-//		LOGGER.info("Order Updated");
-//		return order;
-//	}
+
 	@Override
 	public Order update() {
 		boolean done = false;
@@ -159,7 +127,7 @@ public class OrderController implements CrudController<Order> {
 		LOGGER.info("Please enter the date");
 		String date = getInput();
 		Order order = orderService.update(new Order(id, customer_id, items, date).quantities(quantities).updateAddItems(updateAddItems).updateDeleteItems(updateDeleteItems).items_id_delete(itemsDelete));
-		LOGGER.info("Order Updated");
+		LOGGER.info("-Order Updated-");
 		return order;
 	}
 
@@ -171,6 +139,7 @@ public class OrderController implements CrudController<Order> {
 		LOGGER.info("Please enter the id of the order you would like to delete");
 		Long id = Long.valueOf(getInput());
 		orderService.delete(id);
+		LOGGER.info("Order Deleted");
 	}
 
 }
