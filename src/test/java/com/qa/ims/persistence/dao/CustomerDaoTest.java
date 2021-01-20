@@ -9,14 +9,18 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 import com.qa.ims.IMS;
+import com.qa.ims.controller.CustomerController;
 import com.qa.ims.persistence.domain.Customer;
 import com.qa.ims.utils.DBUtils;
 //import com.qa.ims.persistence.dao.CustomerDaoMysql;
@@ -43,6 +47,19 @@ public class CustomerDaoTest {
 		Customer savedCustomer = new Customer(1L,fn,sn);
 		customer = customerDao.create(customer);
 		assertEquals(savedCustomer, customer);
+	}
+	
+	@Test
+	public void readAllTest() {
+		CustomerDaoMysql customerDAO = new CustomerDaoMysql();
+		List<Customer> customers = new ArrayList<>();
+		customers.add(new Customer(1L,"Chris", "P"));
+		customers.add(new Customer(2L, "Rhys", "T"));
+		customers.add(new Customer(3L, "Nic", "J"));
+		customerDAO.create(new Customer("Chris", "P"));
+		customerDAO.create(new Customer("Rhys", "T"));
+		customerDAO.create(new Customer("Nic", "J"));
+		assertEquals(customers, customerDAO.readAll());
 	}
 
 }
