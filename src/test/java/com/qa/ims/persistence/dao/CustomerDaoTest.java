@@ -61,5 +61,20 @@ public class CustomerDaoTest {
 		customerDAO.create(new Customer("Nic", "J"));
 		assertEquals(customers, customerDAO.readAll());
 	}
+	@Test
+	public void updateTest() {
+		CustomerDaoMysql customerDAO = new CustomerDaoMysql();
+		Long id = 1L;
+		String firstName = "Rhys";
+		String surname = "Thompson";
+		Customer customer = new Customer(id, firstName, surname);
+		
+		assertEquals(customer, customerDAO.update(customer));
+	}
+	@Test
+	public void deleteTest() {
+		CustomerDaoMysql customerDAO = new CustomerDaoMysql();
+		customerDAO.delete(1L);
+	}
 
 }
