@@ -64,12 +64,10 @@ public class CustomerDaoTest {
 	@Test
 	public void updateTest() {
 		CustomerDaoMysql customerDAO = new CustomerDaoMysql();
-		Long id = 1L;
-		String firstName = "Rhys";
-		String surname = "Thompson";
-		Customer customer = new Customer(id, firstName, surname);
-		
-		assertEquals(customer, customerDAO.update(customer));
+		Customer customer = new Customer("Chris", "P");
+		Customer newCustomer = new Customer(1L, "John", "Doe");
+		customerDAO.create(customer);
+		assertEquals(newCustomer, customerDAO.update(newCustomer));
 	}
 	@Test
 	public void deleteTest() {
