@@ -19,14 +19,15 @@ public class DBUtils {
 
 	private final String DB_PASS;
 
-	private final String DB_URL = "jdbc:mysql://localhost:3306/ims";
+	private final String DB_URL;
 
-	private DBUtils(String username, String password) {
+	private DBUtils(String username, String password, String url, boolean test) {
 		this.DB_USER = username;
 		this.DB_PASS = password;
+		this.DB_URL = url;
 
 		try (Connection connection = this.getConnection();
-				BufferedReader br = new BufferedReader(new FileReader("src/main/resources/sql-schema.sql"));) {
+				BufferedReader br = new BufferedReader(new FileReader("src/" + (test ? "test" : "main") + "/resources/sql-schema.sql"));) {
 			String string;
 			while ((string = br.readLine()) != null) {
 				try (Statement statement = connection.createStatement();) {
@@ -47,15 +48,15 @@ public class DBUtils {
 
 	public static DBUtils instance;
 
-	public static DBUtils getInstance(String username, String password) {
-		if (instance == null) {
-			instance = new DBUtils(username, password);
-		}
+	public static DBUtils getInstance(String username, String password, String url, boolean test) {
+		instance = new DBUtils(username, password, url, test);
 		return instance;
 	}
 
 	public static DBUtils getInstance() {
 		return instance;
 	}
+
+//	public static DBUtils con
 
 }

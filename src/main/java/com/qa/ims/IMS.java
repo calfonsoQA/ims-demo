@@ -28,7 +28,7 @@ public class IMS {
 		LOGGER.info("What is your password");
 		String password = Utils.getInstance().getInput();
 
-		DBUtils.getInstance(username, password);
+		DBUtils.getInstance(username, password, "jdbc:mysql://localhost:3306/ims", false);
 		boolean stop = false;
 		while(!stop) {
 			LOGGER.info("Which entity would you like to use?");
