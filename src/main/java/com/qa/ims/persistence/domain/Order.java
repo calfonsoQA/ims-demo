@@ -2,7 +2,7 @@ package com.qa.ims.persistence.domain;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+//import java.util.Date;
 import java.util.List;
 
 public class Order {
@@ -10,7 +10,7 @@ public class Order {
 	private Long id;
 	private Long customer_id;
 	private Long item_id;
-	private String order_date;
+	private String order_date; // String type used for simplicity, however, Date util can be imported to provide real date format
 	private List<Long> items_id = new ArrayList<>();
 	private Integer quantity; 
 	private List<Integer> quantities = new ArrayList<>();

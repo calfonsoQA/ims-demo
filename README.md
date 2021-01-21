@@ -33,7 +33,7 @@ $ java -jar calfonso-ims-0.0.1-jar-with-dependencies.jar
  
 ```
 
-End with an example of getting some data out of the system or using it for a little demo
+![](Supporting%20Documents/OrderReadScreenshot.png)
 
 ## Running the tests
 
