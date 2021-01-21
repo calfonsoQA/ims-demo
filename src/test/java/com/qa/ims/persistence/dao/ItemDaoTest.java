@@ -23,7 +23,6 @@ import com.qa.ims.utils.DBUtils;
 
 public class ItemDaoTest {
 
-	private static final Logger LOGGER = LogManager.getLogger();
 	private static final String DB_USER = "root";
 	private static final String DB_PASS = "root";
 	private static final String DB_URL = "jdbc:mysql://localhost:3306/ims_test";
