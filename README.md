@@ -1,7 +1,7 @@
 Coverage: 75.1%
-# Project Title
+# Inventory Management System (IMS) Project
 
-One Paragraph of project description goes here
+The objective of this project is to develop an application using Java to interact with a SQL database within a Google Cloud Platform (GCP) instance. The application will enable the user to interact with the application via the command line. The application enables the user to Create, Read, Update and Delete entries within the IMS database.
 
 ## Getting Started
 
@@ -9,10 +9,14 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
+What you need to install the software and how to install them
 
 ```
-Give examples
+To run this application, you will need:
+* Java installed 
+* MySQLWorkbench for a local SQL database connection.
+
+
 ```
 
 ### Installing
