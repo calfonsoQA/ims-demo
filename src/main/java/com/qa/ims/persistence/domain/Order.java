@@ -13,11 +13,11 @@ public class Order {
 	private Long item_id;
 	private String order_date;
 	private List<Long> items_id = new ArrayList<>();
-	private int quantity; 
+	private Integer quantity; 
 	private List<Integer> quantities = new ArrayList<>();
 	private Double total_price;
-	private boolean updateAddItems;
-	private boolean updateDeleteItems;
+	private Boolean updateAddItems;
+	private Boolean updateDeleteItems;
 	private List<Long> items_id_delete = new ArrayList<>();
 
 	public Order() {
@@ -35,12 +35,6 @@ public class Order {
 		this.order_date = order_date;
 	}
 
-//	public Order(Long id, Long customer_id, String order_date) {
-//		super();
-//		this.id = id;
-//		this.customer_id = customer_id;
-//		this.order_date = order_date;
-//	}
 	public Order(Long customer_id, List<Long> items_id, String order_date) {
 		super();
 		this.customer_id = customer_id;
@@ -55,28 +49,15 @@ public class Order {
 		this.order_date = order_date;
 		this.items_id = items_id;
 	}
-	
-//	public Order(Long id, Long customer_id, Long item_id, String order_date) {
-//		this.id = id;
-//		this.customer_id = customer_id;
-//		this.item_id = item_id;
-//		this.order_date = order_date;
-//	}
-	
 
-	public Order(Long id, Long ordItem_id, Long customer_id, Long item_id, String order_date) {
+	public Order(Long id, Long customer_id, Long item_id, Integer quantity, String order_date) {
 		this.id = id;
-		this.ordItem_id = ordItem_id;
 		this.customer_id = customer_id;
 		this.item_id = item_id;
+		this.quantity = quantity;
 		this.order_date = order_date;
 	}
 
-//	@Override
-//	public String toString() {
-//		return "Order [order_id= " + id + ", customer_id= " + customer_id + ", order_date= "
-//				+ order_date + "]";
-//	}
 	@Override
 	public String toString() {
 		return "Order [order_id= " + id + ", customer_id= " + customer_id + ", item_id= " + item_id + ", quantity= " + quantity + ", order_date= "
@@ -140,11 +121,11 @@ public class Order {
 	}
 	
 
-	public int getQuantity() {
+	public Integer getQuantity() {
 		return quantity;
 	}
 
-	public void setQuantity(int quantity) {
+	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}
 
@@ -156,19 +137,19 @@ public class Order {
 		this.total_price = total_price;
 	}
 	
-public boolean getUpdateAddItems() {
+public Boolean getUpdateAddItems() {
 		return updateAddItems;
 	}
 
-	public void setUpdateAddItems(boolean updateAddItems) {
+	public void setUpdateAddItems(Boolean updateAddItems) {
 		this.updateAddItems = updateAddItems;
 	}
 
-	public boolean getUpdateDeleteItems() {
+	public Boolean getUpdateDeleteItems() {
 		return updateDeleteItems;
 	}
 
-	public void setUpdateDeleteItems(boolean updateDeleteItems) {
+	public void setUpdateDeleteItems(Boolean updateDeleteItems) {
 		this.updateDeleteItems = updateDeleteItems;
 	}
 	public List<Long> getItems_id_delete() {
@@ -179,8 +160,8 @@ public boolean getUpdateAddItems() {
 		this.items_id_delete = items_id_delete;
 	}
 
-	//	BUILDERS
-	public Order quantity(int quantity) {
+//		BUILDERS
+	public Order quantity(Integer quantity) {
 		this.quantity = quantity;
 		return this;
 	}
