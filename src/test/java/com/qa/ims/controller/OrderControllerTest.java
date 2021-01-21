@@ -29,43 +29,64 @@ public class OrderControllerTest {
 	 */
 	@Spy
 	@InjectMocks
-	private orderController customerController;
+	private OrderController orderController;
 
 	@Test
 	public void readAllTest() {
-		CustomerController customerController = new CustomerController(customerServices);
-		List<Customer> customers = new ArrayList<>();
-		customers.add(new Customer("Chris", "P"));
-		customers.add(new Customer("Rhys", "T"));
-		customers.add(new Customer("Nic", "J"));
-		Mockito.when(customerServices.readAll()).thenReturn(customers);
-		assertEquals(customers, customerController.readAll());
+		OrderController orderController = new OrderController(orderServices);
+		List<Order> orders = new ArrayList<>();
+		List<Long> items_id = new ArrayList<>();
+		List<Long> items_id2 = new ArrayList<>();
+		List<Long> items_id3 = new ArrayList<>();
+		items_id.add(1L);
+		items_id2.add(2L);
+		items_id3.add(3L);
+		
+		orders.add(new Order(1L,items_id, "January"));
+		orders.add(new Order(2L,items_id2, "February"));
+		orders.add(new Order(3L,items_id3, "March"));
+		Mockito.when(orderServices.readAll()).thenReturn(orders);
+		assertEquals(orders, orderController.readAll());
 	}
 
 	@Test
 	public void createTest() {
-		String firstName = "Chris";
-		String surname = "Perrins";
-		Mockito.doReturn(firstName, surname).when(customerController).getInput();
-		Customer customer = new Customer(firstName, surname);
-		Customer savedCustomer = new Customer(1L, "Chris", "Perrins");
-		Mockito.when(customerServices.create(customer)).thenReturn(savedCustomer);
-		assertEquals(savedCustomer, customerController.create());
+		String customer_id = "1";
+		String item_id = "1";
+		String date = "January";
+		String quantity = "10";
+		List<Long> items_id = new ArrayList<>();
+		List<Integer> quantities = new ArrayList<>();
+		items_id.add(1L);
+		quantities.add(10);
+		Mockito.doReturn(customer_id, item_id, quantity, date).when(orderController).getInput();
+		Order order = new Order(1L, items_id,"January").quantities(quantities);
+		Order savedOrder = new Order(1L, 1L, items_id, "January").quantities(quantities);
+		Mockito.when(orderServices.create(order)).thenReturn(savedOrder);
+		assertEquals(savedOrder, orderController.create());
 	}
 
 	/**
 	 * 
 	 */
-	@Test
-	public void updateTest() {
-		String id = "1";
-		String firstName = "Rhys";
-		String surname = "Thompson";
-		Mockito.doReturn(id, firstName, surname).when(customerController).getInput();
-		Customer customer = new Customer(1L, firstName, surname);
-		Mockito.when(customerServices.update(customer)).thenReturn(customer);
-		assertEquals(customer, customerController.update());
-	}
+//	@Test
+//	public void updateTest() {
+//		String id = "1";
+//		String customer_id = "2";
+//		String item_id = "2";
+//		String quantity = "20";
+//		String date = "February";
+//		String updateAddItems = "true";
+//		String updateDeleteItems = "false";
+//		List<Long> items_id = new ArrayList<>();
+//		List<Integer> quantities = new ArrayList<>();
+//		items_id.add(1L);
+//		quantities.add(20);
+//		Mockito.doReturn(id, customer_id, item_id, quantity, date, updateAddItems, updateDeleteItems).when(orderController).getInput();
+//		Order order = new Order(1L, 1L, items_id,date).quantities(quantities).updateAddItems(true).updateDeleteItems(false);
+//		Mockito.when(orderServices.update(order)).thenReturn(order);
+//		assertEquals(order, orderController.update());
+//	}
 	
 
 	/**
@@ -74,8 +95,8 @@ public class OrderControllerTest {
 	@Test
 	public void deleteTest() {
 		String id = "1";
-		Mockito.doReturn(id).when(customerController).getInput();
-		customerController.delete();
-		Mockito.verify(customerServices, Mockito.times(1)).delete(1L);
+		Mockito.doReturn(id).when(orderController).getInput();
+		orderController.delete();
+		Mockito.verify(orderServices, Mockito.times(1)).delete(1L);
 	}
 }
