@@ -1,6 +1,7 @@
 package com.qa.ims.persistence.dao;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -68,6 +69,7 @@ public class CustomerDaoTest {
 		Customer newCustomer = new Customer(1L, "John", "Doe");
 		customerDAO.create(customer);
 		assertEquals(newCustomer, customerDAO.update(newCustomer));
+		assertNotEquals(customer, customerDAO.update(newCustomer));
 	}
 	@Test
 	public void deleteTest() {
