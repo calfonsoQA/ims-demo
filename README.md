@@ -41,30 +41,25 @@ Explain how to run the automated tests for this system. Break down into which te
 
 ### Unit Tests 
 
-Explain what these tests test, why and how to run them
-
-```
-Give an example
-```
-
-### Integration Tests 
-Explain what these tests test, why and how to run them
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
+JUnit is used for testing this application. In order to run these tests, right-click on the project within the Eclipse IDE and select "Coverage As", then select "JUnit Test"
 
 ## Deployment
 
-Add additional notes about how to deploy this on a live system
+1. Open a command line within the project folder i.e. change directory within the command line to "/your-directory/ims-demo/"
+2. Enter the following:
+```
+$ mvn clean package
+ 
+```
+3. Then change directory into target using
+```
+$ cd target 
+```
+4. Run the application using:
+```
+$ java -jar calfonso-ims-0.0.1-jar-with-dependencies.jar
+ 
+```
 
 ## Built With
 
@@ -76,7 +71,9 @@ We use [SemVer](http://semver.org/) for versioning.
 
 ## Authors
 
-* **Chris Perrins** - *Initial work* - [christophperrins](https://github.com/christophperrins)
+* **Chris Perrins** - *Initial work* - [christophperrins](https://github.com/RafSobolQAC/ims-demo)
+* **Jordan Harrison** - *Updated-base* - [christophperrins](https://github.com/JHarry444/ims-demo)
+* **Claes** - *Implementation and development of working application*
 
 ## License
 
