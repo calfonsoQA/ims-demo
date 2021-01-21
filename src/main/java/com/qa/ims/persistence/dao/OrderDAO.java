@@ -18,11 +18,6 @@ public class OrderDAO implements Dao<Order> {
 
 	public static final Logger LOGGER = LogManager.getLogger();
 
-	public Order modelOrderIDFromResultSet(ResultSet resultSet) throws SQLException {
-		Long id = resultSet.getLong("order_id");
-		return new Order(id);
-	}
-
 	@Override
 	public Order modelFromResultSet(ResultSet resultSet) throws SQLException {
 		Long id = resultSet.getLong("order_id");

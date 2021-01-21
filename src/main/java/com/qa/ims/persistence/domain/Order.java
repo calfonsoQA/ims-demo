@@ -8,7 +8,6 @@ import java.util.List;
 public class Order {
 
 	private Long id;
-	private Long ordItem_id;
 	private Long customer_id;
 	private Long item_id;
 	private String order_date;
@@ -22,17 +21,6 @@ public class Order {
 
 	public Order() {
 
-	}
-
-	public Order(Long id) {
-		super();
-		this.id = id;
-	}
-
-	public Order(Long customer_id, String order_date) {
-
-		this.customer_id = customer_id;
-		this.order_date = order_date;
 	}
 
 	public Order(Long customer_id, List<Long> items_id, String order_date) {
@@ -70,14 +58,6 @@ public class Order {
 
 	public void setOrder_id(Long id) {
 		this.id = id;
-	}
-
-	public Long getOrdItem_id() {
-		return ordItem_id;
-	}
-
-	public void setOrdItem_id(Long ordItem_id) {
-		this.ordItem_id = ordItem_id;
 	}
 
 	public Long getCustomer_id() {
