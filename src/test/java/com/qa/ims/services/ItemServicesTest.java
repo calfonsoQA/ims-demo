@@ -15,34 +15,34 @@ import com.qa.ims.persistence.domain.Item;
 public class ItemServicesTest {
 	
 	@Mock
-	private Dao<Item> customerDao;
+	private Dao<Item> itemDao;
 	
 	@InjectMocks
 	private ItemServices itemServices;
 	
 	@Test
 	public void itemServicesCreate() {
-		Item customer = new Item("tomato", 12.09);
-		itemServices.create(customer);
-		Mockito.verify(customerDao, Mockito.times(1)).create(customer);
+		Item item = new Item("tomato", 12.09);
+		itemServices.create(item);
+		Mockito.verify(itemDao, Mockito.times(1)).create(item);
 	}
 	
 	@Test
 	public void itemServicesRead() {
 		itemServices.readAll();
-	Mockito.verify(customerDao, Mockito.times(1)).readAll();
+	Mockito.verify(itemDao, Mockito.times(1)).readAll();
 	}
 	
 	@Test
 	public void itemServicesUpdate() {
 		Item item = new Item("tomato", 12.09);
 		itemServices.update(item);
-		Mockito.verify(customerDao, Mockito.times(1)).update(item);
+		Mockito.verify(itemDao, Mockito.times(1)).update(item);
 	}
 	
 	@Test
 	public void itemServicesDelete() {
 		itemServices.delete(1L);;
-		Mockito.verify(customerDao, Mockito.times(1)).delete(1L);
+		Mockito.verify(itemDao, Mockito.times(1)).delete(1L);
 	}
 }

@@ -139,12 +139,40 @@ public Boolean getUpdateAddItems() {
 	public void setItems_id_delete(List<Long> items_id_delete) {
 		this.items_id_delete = items_id_delete;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Order otherOrder = (Order) obj;
+		if (customer_id == null) {
+			if (otherOrder.customer_id != null)
+				return false;
+		} else if (!customer_id.equals(otherOrder.customer_id))
+			return false;
+		if (id == null) {
+			if (otherOrder.id != null)
+				return false;
+		} else if (!id.equals(otherOrder.id))
+			return false;
+		if (item_id == null) {
+			if (otherOrder.item_id != null)
+				return false;
+		} else if (!item_id.equals(otherOrder.item_id))
+			return false;
+		if (quantity == null) {
+			if (otherOrder.quantity != null)
+				return false;
+		} else if (!quantity.equals(otherOrder.quantity))
+			return false;
+		return true;
+	}
 
 //		BUILDERS
-	public Order quantity(Integer quantity) {
-		this.quantity = quantity;
-		return this;
-	}
 	public Order quantities(List<Integer> quantities) {
 		this.quantities = quantities;
 		return this;
