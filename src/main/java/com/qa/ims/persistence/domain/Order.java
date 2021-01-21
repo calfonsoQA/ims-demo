@@ -24,14 +24,12 @@ public class Order {
 	}
 
 	public Order(Long customer_id, List<Long> items_id, String order_date) {
-		super();
 		this.customer_id = customer_id;
 		this.items_id = items_id;
 		this.order_date = order_date;
 	}
 
 	public Order(Long id, Long customer_id, List<Long> items_id,String order_date) {
-		super();
 		this.id = id;
 		this.customer_id = customer_id;
 		this.order_date = order_date;

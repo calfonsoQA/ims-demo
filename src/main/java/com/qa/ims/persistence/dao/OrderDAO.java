@@ -5,7 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -165,7 +164,7 @@ public class OrderDAO implements Dao<Order> {
 			if (updateDeleteItems) {
 				//int j = 0;
 				for (Long i : itemsDelete) {
-					statement.executeUpdate("delete from ordersItems where item_id = " + i);
+					statement.executeUpdate("delete from ordersItems WHERE item_id = " + i + " AND order_id = " + order.getId());
 				}
 			}
 			if (updateAddItems) {
