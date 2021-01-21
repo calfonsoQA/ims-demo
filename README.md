@@ -14,23 +14,23 @@ What you need to install the software and how to install them
 
 To run this application, you will need:
 * Java installed 
+* Eclipse IDE
+* Maven
 * MySQLWorkbench for a local SQL database connection
+* Google Cloud Platform (GCP) instance for a remote SQL connection
 
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development env running
+How to get the development environment running:
 
-Say what the step will be
+1. Clone or fork this repository
+2. Import folder as a Maven project within Eclipse
 
+In order to run the Java application within the command line enter the following into the command line and press enter: 
 ```
-Give the example
-```
-
-And repeat
-
-```
-until finished
+$ java -jar calfonso-ims-0.0.1-jar-with-dependencies.jar
+ 
 ```
 
 End with an example of getting some data out of the system or using it for a little demo
