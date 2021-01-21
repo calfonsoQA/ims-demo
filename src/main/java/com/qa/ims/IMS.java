@@ -28,8 +28,8 @@ public class IMS {
 		LOGGER.info("What is your password");
 		String password = Utils.getInstance().getInput();
 
-		//DBUtils.getInstance(username, password, "jdbc:mysql://localhost:3306/ims", false);
-		DBUtils.getInstance(username, password, "jdbc:mysql://34.89.50.132:3306/ims", false); // for connecting to GCP
+		DBUtils.getInstance(username, password, "jdbc:mysql://localhost:3306/ims", false);
+		//DBUtils.getInstance(username, password, "jdbc:mysql://34.89.50.132:3306/ims", false); // for connecting to GCP
 		boolean stop = false;
 		while(!stop) {
 			LOGGER.info("Which entity would you like to use?");

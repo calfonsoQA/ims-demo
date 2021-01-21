@@ -1,4 +1,4 @@
-Coverage: 34%
+Coverage: 75.1%
 # Project Title
 
 One Paragraph of project description goes here
