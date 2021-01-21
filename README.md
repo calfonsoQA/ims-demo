@@ -11,13 +11,11 @@ These instructions will get you a copy of the project up and running on your loc
 
 What you need to install the software and how to install them
 
-```
+
 To run this application, you will need:
 * Java installed 
 * MySQLWorkbench for a local SQL database connection.
 
-
-```
 
 ### Installing
 
