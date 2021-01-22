@@ -72,7 +72,7 @@ We use [SemVer](http://semver.org/) for versioning.
 ## Authors
 
 * **Chris Perrins** - *Initial work* - [christophperrins](https://github.com/RafSobolQAC/ims-demo)
-* **Jordan Harrison** - *Updated-base* - [christophperrins](https://github.com/JHarry444/ims-demo)
+* **Jordan Harrison** - *Updated-base* - [jordanharrison](https://github.com/JHarry444/ims-demo)
 * **Claes Alfonso** - *Implementation and development of working application*
 
 ## License
