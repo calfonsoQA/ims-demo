@@ -69,24 +69,24 @@ public class OrderControllerTest {
 	/**
 	 * 
 	 */
-//	@Test
-//	public void updateTest() {
-//		String id = "1";
-//		String customer_id = "2";
-//		String item_id = "2";
-//		String quantity = "20";
-//		String date = "February";
-//		String updateAddItems = "true";
-//		String updateDeleteItems = "false";
-//		List<Long> items_id = new ArrayList<>();
-//		List<Integer> quantities = new ArrayList<>();
-//		items_id.add(1L);
-//		quantities.add(20);
-//		Mockito.doReturn(id, customer_id, item_id, quantity, date, updateAddItems, updateDeleteItems).when(orderController).getInput();
-//		Order order = new Order(1L, 1L, items_id,date).quantities(quantities).updateAddItems(true).updateDeleteItems(false);
-//		Mockito.when(orderServices.update(order)).thenReturn(order);
-//		assertEquals(order, orderController.update());
-//	}
+	@Test
+	public void updateTest() {
+		String id = "1";
+		String customer_id = "2";
+		String item_id = "2";
+		String quantity = "20";
+		String date = "February";
+		String updateAddItems = "true";
+		String updateDeleteItems = "false";
+		List<Long> items_id = new ArrayList<>();
+		List<Integer> quantities = new ArrayList<>();
+		items_id.add(1L);
+		quantities.add(20);
+		Mockito.doReturn(id, customer_id, item_id, quantity, date, updateAddItems, updateDeleteItems).when(orderController).getInput();
+		Order order = new Order(1L, 1L, items_id,date).quantities(quantities).updateAddItems(true).updateDeleteItems(false);
+		Mockito.when(orderServices.update(order)).thenReturn(order);
+		assertEquals(order, orderController.update());
+	}
 	
 
 	/**

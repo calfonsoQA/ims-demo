@@ -73,7 +73,7 @@ We use [SemVer](http://semver.org/) for versioning.
 
 * **Chris Perrins** - *Initial work* - [christophperrins](https://github.com/RafSobolQAC/ims-demo)
 * **Jordan Harrison** - *Updated-base* - [christophperrins](https://github.com/JHarry444/ims-demo)
-* **Claes** - *Implementation and development of working application*
+* **Claes Alfonso** - *Implementation and development of working application*
 
 ## License
 
@@ -83,6 +83,8 @@ This project is licensed under the MIT license - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+* **Jordan Harrison** - *Updated-base creator*
+* **Nick Johnson** - *Git and Project Management Trainer*
+* **Vinesh Ghela** - *Java Development and Testing Trainer*
+* **Aswene Sivaraj** - *Java Development and Testing, SQL Trainer*
+
